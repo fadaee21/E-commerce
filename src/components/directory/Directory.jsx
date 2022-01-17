@@ -1,10 +1,8 @@
-// import { useState } from "react"
+import React from "react"
 import "./directory.scss"
 import sections from "./dir"
 import { MenuItem } from "../menu-item/MenuItem"
 export const Directory = () => {
-    // const [product, setProduct] =useState("")
-
     return (
         <div className="directory-menu">
             {sections.map(({ id, title, imageUrl, size }) => {
