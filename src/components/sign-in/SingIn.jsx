@@ -10,12 +10,14 @@ import {
     GoogleAuthProvider,
     signInWithEmailAndPassword,
 } from "firebase/auth";
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/user'
+import { useHistory } from 'react-router-dom'
 
 export const SignIn = () => {
-
+    const dispatch = useDispatch()
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-
 
     const signIn = async () => {
         try {
@@ -24,18 +26,20 @@ export const SignIn = () => {
                 loginEmail,
                 loginPassword
             );
-
+            
             const noteSnapshot = await getDoc(doc(db, 'users', auth.currentUser.uid));
             if (noteSnapshot.exists()) {
-                const tt = noteSnapshot.data()
-                console.log(tt.displayName);
+                var tt = noteSnapshot.data();
+                
             } else {
                 console.log("Note doesn't exist");
             }
-
         } catch (error) {
             console.log(error.message);
         }
+        
+        dispatch(login({ email: loginEmail, password: loginPassword, displayName: tt.displayName }))
+        setLocalStorage("user", { email: loginEmail, password: loginPassword, displayName: tt.displayName })
     }
     const signInWithGoogle = async () => {
         try {
@@ -49,9 +53,21 @@ export const SignIn = () => {
         }
     }
 
+
+    const setLocalStorage = (key, value) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(value))
+        } catch (e) {
+            console.error({ e })
+        }
+    }
+
+
+    const history = useHistory()
     const handleSubmit = (e) => {
         e.preventDefault()
         signIn()
+        history.push("/")
         setLoginEmail("")
         setLoginPassword("")
     }
@@ -77,7 +93,9 @@ export const SignIn = () => {
                     label={"Password"}
                     required />
                 <div className="buttons">
-                    <CustomButton type="submit">Sign In</CustomButton>
+                    <CustomButton type="submit"
+
+                    >Sign In</CustomButton>
                     <CustomButton onClick={signInWithGoogle} isGoogleSignIn >
                         Sign in with google
                     </CustomButton>

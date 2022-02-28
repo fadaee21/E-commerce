@@ -4,17 +4,26 @@ import { FormInput } from "../form-input/FormInput";
 import { auth, db } from "../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
-
 import './signUp.scss'
+import { useDispatch } from "react-redux";
+import { signup } from "../../redux/user";
 
 export const SignUp = () => {
-
+    const dispatch = useDispatch()
     const [account, setAccount] = React.useState({
         displayName: "",
         email: "",
         password: "",
         confirmPassword: ""
     });
+
+    const setLocalStorage = (key, value) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(value))
+        } catch (e) {
+            console.error({ e })
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -26,7 +35,6 @@ export const SignUp = () => {
         try {
             const user = await createUserWithEmailAndPassword(
                 auth,
-
                 email,
                 password
             );
@@ -39,16 +47,16 @@ export const SignUp = () => {
                 password: "",
                 confirmPassword: ""
             });
+            dispatch(signup({ email: email, password: password, displayName: displayName }));
+            setLocalStorage("user", { email: email, password: password, displayName: displayName })
         } catch (error) {
             console.log(error.message);
         }
     }
     const handleChange = (e) => {
         const { name, value } = e.target
-        console.log(name, value);
         setAccount(old => ({ ...old, [name]: value }))
     };
-
 
     return (
         <div className="sign-up">

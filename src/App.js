@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { HomePage } from "./pages/homepage/HomePage";
@@ -9,20 +9,25 @@ import { Header } from "./components/header/Header";
 import { Sign } from "./pages/sign/Sign";
 import { auth } from "./firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import { useSelector } from 'react-redux';
+import { useState } from "react";
+
 function App() {
-  const [user, setUser] = useState({});
+  
+  const selectorData = useSelector(state=>state.user.value)
 
-  if(user){console.log(user);}
-
+  const [user, setUser] = useState(selectorData);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-  }, []);
+  }, [selectorData]);
+  console.log(user);
+
 
   return (
     <BrowserRouter>
-      <Header currentUser={user} />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={Shop} />
@@ -33,3 +38,4 @@ function App() {
 }
 
 export default App;
+
