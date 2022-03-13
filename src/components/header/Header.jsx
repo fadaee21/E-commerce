@@ -26,7 +26,7 @@ export const Header = () => {
             <Link className='logo-container' to="/">
                 <Logo className="logo" />
             </Link>
-            <h1>welcome {currentUser.displayName}</h1>
+            <h1>{ currentUser.displayName && `welcome ${currentUser.displayName}` }</h1>
             <div className="options">
                 <Link className='option' to="/shop" >SHOP</Link>
                 <Link className='option' to="/" >CONTACT</Link>
@@ -35,7 +35,7 @@ export const Header = () => {
                         onClick={out} >
                         SIGN OUT</div>
 
-                    : <Link className='option' to='/signin'>LOGIN</Link>}
+                    : <Link className='option' to='/signin'>SIGN IN</Link>}
             </div>
         </div>
     )

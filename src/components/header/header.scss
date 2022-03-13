@@ -6,12 +6,10 @@
   margin-bottom: 25px;
   align-items: center;
 
-
   .logo-container {
     height: 60%;
     width: 70px;
     // padding-right: 2%;
-    
   }
   .options {
     width: 50%;
@@ -37,6 +35,9 @@
 
     .options {
       justify-content: flex-start;
+      .option {
+        width: 11rem;
+      }
     }
   }
 }
