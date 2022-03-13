@@ -7,6 +7,8 @@ import { setDoc, doc } from "firebase/firestore";
 import './signUp.scss'
 import { useDispatch } from "react-redux";
 import { signup } from "../../redux/user";
+import { useHistory } from 'react-router-dom'
+
 
 export const SignUp = () => {
     const dispatch = useDispatch()
@@ -24,7 +26,7 @@ export const SignUp = () => {
             console.error({ e })
         }
     }
-
+    const history = useHistory()
     const handleSubmit = async (e) => {
         e.preventDefault()
         const { displayName, email, password, confirmPassword } = account
@@ -52,6 +54,8 @@ export const SignUp = () => {
         } catch (error) {
             console.log(error.message);
         }
+
+        history.push("/shop")
     }
     const handleChange = (e) => {
         const { name, value } = e.target

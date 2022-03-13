@@ -9,7 +9,9 @@ import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/user'
 export const Header = () => {
     const dispatch = useDispatch()
+
     const currentUser = useSelector((state) => state.user.value)
+
     const history = useHistory()
     const out = async () => {
         await signOut(auth)
@@ -27,7 +29,7 @@ export const Header = () => {
             <h1>welcome {currentUser.displayName}</h1>
             <div className="options">
                 <Link className='option' to="/shop" >SHOP</Link>
-                <Link className='option' to="/shop" >CONTACT</Link>
+                <Link className='option' to="/" >CONTACT</Link>
                 {currentUser.email
                     ? <div className='option'
                         onClick={out} >
