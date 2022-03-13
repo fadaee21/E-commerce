@@ -2,7 +2,7 @@
   width: 380px;
   display: flex;
   flex-direction: column;
-  
+
   .title {
     margin: 10px 0;
   }
@@ -10,5 +10,15 @@
   .buttons {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .sign-in {
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
   }
 }
