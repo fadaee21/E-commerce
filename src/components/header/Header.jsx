@@ -33,7 +33,7 @@ export const Header = () => {
                         onClick={out} >
                         SIGN OUT</div>
 
-                    : <Link className='option' to='/signin'>SIGN IN</Link>}
+                    : <Link className='option' to='/signin'>LOGIN</Link>}
             </div>
         </div>
     )

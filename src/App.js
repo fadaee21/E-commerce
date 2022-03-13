@@ -22,6 +22,7 @@ function App() {
       setUser(currentUser);
     });
   }, [selectorData]);
+  
   console.log(user);
 
 

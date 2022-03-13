@@ -52,3 +52,10 @@
       }
     }
   }
+
+  @media only screen and (max-width: 650px) {
+    .directory-menu{
+      display: grid;
+      grid-template-columns: 1fr
+    }
+  }
